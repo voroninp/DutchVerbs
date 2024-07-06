@@ -29,9 +29,12 @@ jobs:
         with:
           # Semantic version range syntax or exact version of a dotnet version
           dotnet-version: '8.x'
-
+          cache: true
+          
+      - name: Restore packages
+        run: dotnet restore --locked-mode
+        
       - name: Build and Publish
         run: |
-          dotnet workload install wasm-tools
-          dotnet build -c Release
+          dotnet build -c Release --no-restore
           dotnet publish DutchVerbs.Spa --no-build -c Release -o ./App
