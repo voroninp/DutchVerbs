@@ -31,11 +31,15 @@ jobs:
           dotnet-version: '8.x'
           cache: true
           cache-dependency-path: DutchVerbs.Spa/packages.lock.json
+
+      - name: Install workloads
+        run: dotnet workload install wasm-tools
           
       - name: Restore packages
         run: dotnet restore --locked-mode
         
-      - name: Build and Publish
-        run: |
-          dotnet build -c Release --no-restore
-          dotnet publish DutchVerbs.Spa --no-build -c Release -o ./App
+      - name: Build
+        run: dotnet build -c Release --no-restore
+
+      - name: Publish
+        run: dotnet publish DutchVerbs.Spa --no-build -c Release -o ./App
