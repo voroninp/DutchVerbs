@@ -1,0 +1,90 @@
+﻿печь;bakken;bakte;gebakken
+начинаться;beginnen;begon;begonnen
+прятать, беречь;bergen;borg;geborgen
+просить;bidden;bad (мн. ч. baden);gebeden
+предлагать;bieden;bood;geboden
+связывать;binden;bond;gebonden
+оказываться;blijken;bleek;gebleken
+oставаться;blijven;bleef;gebleven
+жарить;braden;braadde;gebraden
+ломать;breken;brak (мн. ч. braken);gebroken
+приносить;brengen;bracht;gebracht
+варить пиво;brouwen;brouwde;gebrouwen
+гнуть;buigen;boog;gebogen
+думать;denken;dacht;gedacht
+делать;doen;deed;gedaan
+носить;dragen;droeg (мн. ч. droegen);gedragen
+вторгаться;dringen;drong;gedrongen
+пить;drinken;dronk;gedronken
+заставлять, принуждать;dwingen;dwong;gedwongen
+есть;eten;at (мн. ч. aten);gegeten
+идти;gaan;ging;gegaan
+лечить;genezen;genas (мн. ч. genazen);genezen
+наслаждаться;genieten;genoot;genoten
+давать;geven;gaf;gegeven
+лить, поливать;gieten;goot;gegoten
+скользить;glijden;gleed;gegleden
+висеть;hangen;hing;gehangen
+иметь;hebben;had (мн. ч. hadden);gehad
+помогать;helpen;hielp;geholpen
+называть;heten;heette;geheten
+держать;houden;hield;gehouden
+смотреть;kijken;keek;gekeken
+выбирать;kiezen;koos;gekozen
+приходить, приезжать;komen;kwam (мн. ч. kwamen);gekomen
+покупать;kopen;kocht;gekocht
+получать;krijgen;kreeg;gekregen
+мочь, уметь;kunnen;kon (мн. ч. konden);gekund
+смеяться;lachen;lachte;gelachen
+нагружать;laden;laadde;geladen
+оставлять;laten;liet;gelaten
+читать;lezen;las (мн. ч. lazen);gelezen
+лгать;liegen;loog;gelogen
+лежать;liggen;lag (мн. ч. lagen);gelegen
+страдать;lijden;leed;geleden
+казаться, быть похожим;lijken;leek;geleken
+ходить, бегать;lopen;liep;gelopen
+измерять;meten;mat (мн. ч. maten);gemeten
+мочь, сметь;mogen;mocht;gemogen (gemoogd, gemocht)
+долженствовать;moeten;moest;gemoeten
+брать;nemen;nam (мн. ч. namen);genomen
+ценить;prijzen;prees;geprezen
+советовать;raden;ried,;raadde;geraden
+звать;rоеpen;riep;geroepen
+пахнуть,нюхать;ruiken;rook;geroken
+разделять, разводить;scheiden;scheidde;gescheiden
+стрелять;schieten;schoot;geschoten
+светить, казаться;schijnen;scheen;geschenen
+бить;slaan;sloeg;geslagen
+спать;slapen;sliep;geslapen
+закрывать, заключать;sluiten;sloot;gesloten
+разговаривать;spreken;sprak (мн. ч. spraken);gesproken
+стоять;staan;stond;gestaan
+воровать;stelen;stal (мн. ч. stalen);gestolen
+умирать;sterven;stierf;gestorven
+подниматься;stijgen;steeg;gestegen
+вступать;treden;trad (мн. ч. traden);getreden
+попадать;treffen;trof;getroffen
+падать;vallen;viel;gevallen
+ловить;vangen;ving;gevangen
+исчезать;verdwijnen;verdween;verdwenen
+терять;verliezen;verloor;verloren
+находить;vinden;vond;gevonden
+лететь;vliegen;vloog;gevlogen
+складывать;vouwen;vouwde;gevouwen
+спрашивать;vragen;vroeg;gevraagd
+замораживать, замерзнуть;vriezen;vroor;gevroren
+мыть, стирать;wassen;waste;gewassen
+расти;wassen;wies (мн. ч. wiesen);gewassen
+знать;weten;wist;geweten
+бросать;werpen;wierp;geworpen
+хотеть;willen;wilde;gewild
+становиться;worden;werd;geworden
+мстить;wreken;wreekte;gewroken
+сказать;zeggen;zei (мн. ч. zeiden);gezegd
+быть;zijn;was (мн. ч. waren);geweest
+петь;zingen;zong;gezongen
+сидеть;zitten;zat (мн. ч. zaten);gezeten
+искать;zoeken;zocht;gezocht
+солить;zouten;zoutte;gezouten
+плавать;zwemmen;zwom;gezwommen

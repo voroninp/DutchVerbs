@@ -1,0 +1,78 @@
+﻿@page "/"
+@using Microsoft.AspNetCore.Components.Forms
+@using DutchVerbs.Models
+@using System.ComponentModel.DataAnnotations;
+@inject IApplication App
+@inject NavigationManager Nav
+
+<p>@verb.SourceValue</p>
+
+<div class="row mb-3">
+    <EditForm Model="@answer">
+        <div class="col">
+            <label for="answerInput" class="form-label">Your answer (past simple perfect present)</label>
+            <InputText id="answerInput" @ref="answerInput" class="form-control" @bind-Value="@answer" @bind-Value:after="AcceptAnswer"/>
+        </div>
+    </EditForm>
+</div>
+
+
+@if (progress is not null)
+{
+    <div class="row">
+        <div class="col">
+            <p>@string.Join(" ", verb.TargetValueByTime.Values)</p>
+        </div>
+    </div>
+}
+
+@code
+{
+    private sealed class AnswerModel
+    {
+        [Required]
+        public string? Input { get; set; }
+    }
+
+    private InputText? answerInput;
+    private bool _focusAnswerInput = true;
+
+    private string answer = string.Empty;
+    private Verb verb = null!;
+    private LearningProgress? progress;
+
+    public override async Task SetParametersAsync(ParameterView parameters)
+    {
+        await base.SetParametersAsync(parameters);
+
+        progress = null;
+        verb = App.GetNextVerb();
+    }
+
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        if (_focusAnswerInput && answerInput?.Element is ElementReference reference)
+        {
+            await reference.FocusAsync();
+            
+        }
+    }
+
+    private async Task AcceptAnswer()
+    {
+        progress = App.VerifyAnswerForVerb(verb, answer);
+        if (progress.LastAnswer!.IsCorrect)
+        {
+            GoToNextVerb();
+        }
+
+        _focusAnswerInput = true;
+    }
+
+    private void GoToNextVerb()
+    {
+        progress = null;
+        answer = string.Empty;
+        verb = App.GetNextVerb();
+    }
+}
