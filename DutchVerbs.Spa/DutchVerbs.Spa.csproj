@@ -10,6 +10,7 @@
     <PublishTrimmed>true</PublishTrimmed>
     <RunAOTCompilation>True</RunAOTCompilation>
     <NoWarn>CS1998;NU1803</NoWarn>
+    <RestorePackagesWithLockFile>true</RestorePackagesWithLockFile>
   </PropertyGroup>
 
   <ItemGroup>
