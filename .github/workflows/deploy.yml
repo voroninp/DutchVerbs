@@ -30,9 +30,10 @@ jobs:
           # Semantic version range syntax or exact version of a dotnet version
           dotnet-version: '8.x'
           cache: true
+          cache-dependency-path: DutchVerbs.Spa/packages.lock.json
           
       - name: Restore packages
-        run: dotnet restore DutchVerbs.Spa --locked-mode
+        run: dotnet restore --locked-mode
         
       - name: Build and Publish
         run: |
