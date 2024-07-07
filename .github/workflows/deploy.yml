@@ -46,4 +46,4 @@ jobs:
       - name: Upload GitHub Pages Artifact
         uses: actions/upload-pages-artifact@v3.0.1
         with:
-          path: DutchVerbs.App/
+          path: ./App/
