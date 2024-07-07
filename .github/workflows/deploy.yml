@@ -46,7 +46,7 @@ jobs:
       - name: Upload GitHub Pages Artifact
         uses: actions/upload-pages-artifact@v3.0.1
         with:
-          path: ./App/
+          path: ./App/wwwroot
 
   publish:
     # Add a dependency to the build job
