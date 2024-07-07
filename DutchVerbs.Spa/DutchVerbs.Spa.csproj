@@ -11,6 +11,7 @@
     <RunAOTCompilation>True</RunAOTCompilation>
     <NoWarn>CS1998;NU1803</NoWarn>
     <RestorePackagesWithLockFile>true</RestorePackagesWithLockFile>
+    <WasmEnableSIMD>false</WasmEnableSIMD>
   </PropertyGroup>
 
   <ItemGroup>
