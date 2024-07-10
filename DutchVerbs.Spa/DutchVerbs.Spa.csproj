@@ -12,6 +12,7 @@
     <NoWarn>CS1998;NU1803;NU1902;NU1903</NoWarn>
     <RestorePackagesWithLockFile>true</RestorePackagesWithLockFile>
     <WasmEnableSIMD>false</WasmEnableSIMD>
+    <WasmStripILAfterAOT>true</WasmStripILAfterAOT>
   </PropertyGroup>
 
   <ItemGroup>
