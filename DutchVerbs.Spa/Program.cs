@@ -1,9 +1,10 @@
 using Blazored.LocalStorage;
 using Microsoft.AspNetCore.Components.Web;
 using Microsoft.AspNetCore.Components.WebAssembly.Hosting;
-using DutchVerbs;
 
 using DutchVerbs.Spa;
+using DutchVerbs.Spa.Domain.Services;
+using DutchVerbs.Spa.Infrastructure;
 
 Console.WriteLine("Initializing ...");
 var builder = WebAssemblyHostBuilder.CreateDefault(args);
@@ -12,7 +13,10 @@ builder.RootComponents.Add<HeadOutlet>("head::after");
 
 builder.Services.AddScoped(sp => new HttpClient { BaseAddress = new Uri(builder.HostEnvironment.BaseAddress) });
 builder.Services.AddScoped<IApplication, Application>();
-builder.Services.AddBlazoredLocalStorage();
+builder.Services.AddBlazoredLocalStorage(cfg =>
+{
+    cfg.JsonSerializerOptions.TypeInfoResolver = SourceGenerationContext.Default;
+});
 builder.Services.AddBeforeUnload();
 
 var app = builder.Build();

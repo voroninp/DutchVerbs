@@ -4,10 +4,11 @@ using System.Diagnostics.CodeAnalysis;
 using System.Text.RegularExpressions;
 using blazejewicz.Blazor.BeforeUnload;
 using Blazored.LocalStorage;
-using DutchVerbs.Models;
-using DutchVerbs.Models.DTOs;
+using DutchVerbs.Spa.Domain.Models;
+using DutchVerbs.Spa.Domain.Services;
+using DutchVerbs.Spa.Infrastructure.DTOs;
 
-namespace DutchVerbs;
+namespace DutchVerbs.Spa.Infrastructure;
 
 public sealed class Application : IApplication
 {
@@ -19,10 +20,10 @@ public sealed class Application : IApplication
     private readonly ISyncLocalStorageService _storage;
     private readonly BeforeUnload _beforeUnload;
 
-    private readonly Dictionary<int, Verb> _verbById = new();
+    private readonly Dictionary<int, VerbMapping> _verbById = new();
     private readonly Dictionary<int, LearningProgress> _learningProgressByVerbId = new();
 
-    public IReadOnlyDictionary<int, Verb> VerbById { get; }
+    public IReadOnlyDictionary<int, VerbMapping> VerbById { get; }
     public IReadOnlyDictionary<int, LearningProgress> LearningProgressByVerbId { get; }
 
     public Application(HttpClient httpClient, ISyncLocalStorageService storage, BeforeUnload beforeUnload)
@@ -31,11 +32,11 @@ public sealed class Application : IApplication
         _storage = storage;
         _beforeUnload = beforeUnload;
 
-        VerbById = new ReadOnlyDictionary<int, Verb>(_verbById);
+        VerbById = new ReadOnlyDictionary<int, VerbMapping>(_verbById);
         LearningProgressByVerbId = new ReadOnlyDictionary<int, LearningProgress>(_learningProgressByVerbId);
     }
 
-    private bool TryGetStateFromStorage([NotNullWhen(true)] out AppStateDto? stateDto)
+    private bool TryGetStateFromStorage([NotNullWhen(true)] out ApplicationStateDto? stateDto)
     {
         if (!_storage.ContainKey(AppStateKey))
         {
@@ -47,7 +48,7 @@ public sealed class Application : IApplication
 
         try
         {
-            stateDto = _storage.GetItem<AppStateDto>(AppStateKey)!;
+            stateDto = _storage.GetItem<ApplicationStateDto>(AppStateKey)!;
             Debug.Assert(stateDto != null);
 
             if (stateDto.Verbs.Length == 0)
@@ -124,14 +125,14 @@ public sealed class Application : IApplication
 
             var targetVerbs = new[]
             {
-                (VerbTime.Present, Word.Match(words[1]).Value),
-                (VerbTime.PastSimple, Word.Match(words[2]).Value),
-                (VerbTime.Perfect, Word.Match(words[3]).Value)
+                (VerbTime.Present, new Spelling(Word.Match(words[1]).Value)),
+                (VerbTime.PastSimple, new Spelling(Word.Match(words[2]).Value)),
+                (VerbTime.Perfect, new Spelling(Word.Match(words[3]).Value))
             };
 
-            return new Verb(
+            return new VerbMapping(
                     ++id,
-                    Language.Russian_Russia, sourceVerb,
+                    Language.Russian_Russia, new Spelling(sourceVerb),
                     Language.Dutch_Netherlands, targetVerbs);
         });
 
@@ -153,20 +154,20 @@ public sealed class Application : IApplication
 
     public async ValueTask PersistState()
     {
-        var state = new AppStateDto(
+        var state = new ApplicationStateDto(
             VerbById.Values.Select(VerbDto.FromModel).ToArray(),
             LearningProgressByVerbId.Values.Select(LearningProgressDto.FromModel).ToArray());
 
         _storage.SetItem(AppStateKey, state);
     }
 
-    public Verb GetNextVerb()
+    public VerbMapping GetNextVerb()
     {
         var index = Random.Shared.Next(VerbById.Count);
         return VerbById.Values.Skip(index - 1).First();
     }
 
-    public LearningProgress VerifyAnswerForVerb(Verb verb, string answer)
+    public LearningProgress VerifyAnswerForVerb(VerbMapping verb, string answer)
     {
         var words = answer.Split(" ", TrimAndRemoveEmpty).Select(w => w.ToLower()).ToList();
 
@@ -177,7 +178,7 @@ public sealed class Application : IApplication
         var lastAnswer = new LastAnswer(lastAnswerWasCorrect, ErrorPosition: lastAnswerWasCorrect ? null : 0);
 
         var progress = _learningProgressByVerbId.GetValueOrDefault(
-            verb.Id, new LearningProgress(verb.Id, LastAnswer: null, PresentationsCount:0, CorrectAnswers: 0, DateTimeOffset.MinValue));
+            verb.Id, new LearningProgress(verb.Id, LastAnswer: null, PresentationsCount: 0, CorrectAnswers: 0, DateTimeOffset.MinValue));
 
         progress = progress with
         {

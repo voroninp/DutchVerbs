@@ -1,4 +1,4 @@
-﻿namespace DutchVerbs.Models;
+﻿namespace DutchVerbs.Spa.Domain.Models;
 
 public sealed record LearningProgress(
     int VerbId,

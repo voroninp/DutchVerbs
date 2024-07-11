@@ -1,10 +1,12 @@
-﻿namespace DutchVerbs.Models.DTOs;
+﻿using DutchVerbs.Spa.Domain.Models;
+
+namespace DutchVerbs.Spa.Infrastructure.DTOs;
 
 public sealed record LastAnswerDto(
     bool IsCorrect,
     int? ErrorPosition)
 {
-    public static LastAnswerDto? FromModel(LastAnswer? model) 
+    public static LastAnswerDto? FromModel(LastAnswer? model)
         =>
         model switch
         {

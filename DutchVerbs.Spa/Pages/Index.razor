@@ -1,7 +1,8 @@
 ﻿@page "/"
+@using System.ComponentModel.DataAnnotations
+@using DutchVerbs.Spa.Domain.Services
 @using Microsoft.AspNetCore.Components.Forms
-@using DutchVerbs.Models
-@using System.ComponentModel.DataAnnotations;
+@using DutchVerbs.Spa.Domain.Models
 @inject IApplication App
 @inject NavigationManager Nav
 
@@ -10,8 +11,8 @@
 <div class="row mb-3">
     <EditForm Model="@answer">
         <div class="col">
-            <label for="answerInput" class="form-label">Your answer (past simple perfect present)</label>
-            <InputText id="answerInput" @ref="answerInput" class="form-control" @bind-Value="@answer" @bind-Value:after="AcceptAnswer"/>
+            <label for="answerInput" class="form-label">@Prompt</label>
+            <InputText id="answerInput" @ref="answerInput" class="form-control" @bind-Value="@answer" @bind-Value:after="AcceptAnswer" />
         </div>
     </EditForm>
 </div>
@@ -28,6 +29,8 @@
 
 @code
 {
+    private const string Prompt = "Your answer (<past simple> <perfect> <present>)";
+
     private sealed class AnswerModel
     {
         [Required]
@@ -38,7 +41,7 @@
     private bool _focusAnswerInput = true;
 
     private string answer = string.Empty;
-    private Verb verb = null!;
+    private VerbMapping verb = null!;
     private LearningProgress? progress;
 
     public override async Task SetParametersAsync(ParameterView parameters)

@@ -8,11 +8,12 @@
     <EmitCompilerGeneratedFiles>true</EmitCompilerGeneratedFiles>
     <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
     <PublishTrimmed>true</PublishTrimmed>
-    <RunAOTCompilation>True</RunAOTCompilation>
+    <RunAOTCompilation>true</RunAOTCompilation>
     <NoWarn>CS1998;NU1803;NU1902;NU1903</NoWarn>
     <RestorePackagesWithLockFile>true</RestorePackagesWithLockFile>
     <WasmEnableSIMD>false</WasmEnableSIMD>
     <WasmStripILAfterAOT>false</WasmStripILAfterAOT>
+    <JsonSerializerIsReflectionEnabledByDefault>false</JsonSerializerIsReflectionEnabledByDefault>
   </PropertyGroup>
 
   <ItemGroup>
