@@ -22,7 +22,7 @@ jobs:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - name: Checkout repository
         uses: actions/checkout@v4
-      
+
       - name: Setup .NET 8.x
         uses: actions/setup-dotnet@v4
         with:
@@ -33,15 +33,18 @@ jobs:
 
       - name: Install workloads
         run: dotnet workload install wasm-tools
-          
+
       - name: Restore packages
         run: dotnet restore --locked-mode
-        
+
       - name: Build
         run: dotnet build -c Release --no-restore
 
       - name: Publish DutchVerbs.Spa project
         run: dotnet publish DutchVerbs.Spa --no-build -c Release -o ./App
+
+      - name: Update base tag
+        run: pwsh -c DutchVerbs.Spa/Tools/UpdateBasePath.ps1 "./App/wwwroot/index.html" "/DutchVerbs/"
 
       - name: Upload GitHub Pages Artifact
         uses: actions/upload-pages-artifact@v3.0.1
