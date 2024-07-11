@@ -72,33 +72,39 @@ public sealed class Application : IApplication
 
     public async ValueTask InitializeAsync()
     {
-        if (!TryGetStateFromStorage(out var stateDto))
+        try
         {
-            await BuildFreshState();
-            await PersistState();
-            TryGetStateFromStorage(out stateDto);
-        }
+            if (!TryGetStateFromStorage(out var stateDto))
+            {
+                await BuildFreshState();
+                await PersistState();
+                TryGetStateFromStorage(out stateDto);
+            }
 
-        if (stateDto is null)
+            if (stateDto is null)
+            {
+                throw new Exception("Could not initialize application state.");
+            }
+
+            _verbById.Clear();
+            foreach (var verb in stateDto.Verbs)
+            {
+                _verbById.Add(verb.Id, verb.ToModel());
+            }
+
+            _learningProgressByVerbId.Clear();
+            foreach (var progress in stateDto.Learnings)
+            {
+                _learningProgressByVerbId.Add(progress.VerbId, progress.ToModel());
+            }
+
+            _beforeUnload.BeforeUnloadHandler += OnUnload;
+        }
+        catch (Exception ex)
         {
-            throw new Exception("Could not initialize application state.");
+            Console.WriteLine(ex);
+            throw;
         }
-
-        _verbById.Clear();
-        foreach (var verb in stateDto.Verbs)
-        {
-            _verbById.Add(verb.Id, verb.ToModel());
-        }
-
-        _learningProgressByVerbId.Clear();
-        foreach (var progress in stateDto.Learnings)
-        {
-            _learningProgressByVerbId.Add(progress.VerbId, progress.ToModel());
-        }
-
-        _beforeUnload.BeforeUnloadHandler += OnUnload;
-
-        Console.WriteLine("Initialized Application state.");
     }
 
     private static readonly Regex Word = new Regex(@"\w+-?\w+", RegexOptions.Singleline | RegexOptions.Compiled | RegexOptions.NonBacktracking);

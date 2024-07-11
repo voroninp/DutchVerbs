@@ -13,7 +13,7 @@
     <RestorePackagesWithLockFile>true</RestorePackagesWithLockFile>
     <WasmEnableSIMD>false</WasmEnableSIMD>
     <WasmStripILAfterAOT>false</WasmStripILAfterAOT>
-    <JsonSerializerIsReflectionEnabledByDefault>false</JsonSerializerIsReflectionEnabledByDefault>
+    <JsonSerializerIsReflectionEnabledByDefault>true</JsonSerializerIsReflectionEnabledByDefault>
   </PropertyGroup>
 
   <ItemGroup>
