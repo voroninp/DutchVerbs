@@ -5,8 +5,17 @@ using Microsoft.AspNetCore.Components.WebAssembly.Hosting;
 using DutchVerbs.Spa;
 using DutchVerbs.Spa.Domain.Services;
 using DutchVerbs.Spa.Infrastructure;
+using System.Runtime.InteropServices;
+using System.Runtime.CompilerServices;
+
+Console.WriteLine($"Runtime: {RuntimeInformation.RuntimeIdentifier}");
+Console.WriteLine($"Framework: {RuntimeInformation.FrameworkDescription}");
+Console.WriteLine($"OS: {RuntimeInformation.OSArchitecture} - {RuntimeInformation.OSDescription}");
+Console.WriteLine($"{nameof(RuntimeFeature.IsDynamicCodeSupported)}: {RuntimeFeature.IsDynamicCodeSupported}");
+Console.WriteLine($"{nameof(RuntimeFeature.IsDynamicCodeCompiled)}: {RuntimeFeature.IsDynamicCodeCompiled}");
 
 Console.WriteLine("Initializing ...");
+
 var builder = WebAssemblyHostBuilder.CreateDefault(args);
 builder.RootComponents.Add<App>("#app");
 builder.RootComponents.Add<HeadOutlet>("head::after");
