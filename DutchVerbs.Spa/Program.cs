@@ -7,12 +7,22 @@ using DutchVerbs.Spa.Domain.Services;
 using DutchVerbs.Spa.Infrastructure;
 using System.Runtime.InteropServices;
 using System.Runtime.CompilerServices;
+using System.Text.Json;
 
 Console.WriteLine($"Runtime: {RuntimeInformation.RuntimeIdentifier}");
 Console.WriteLine($"Framework: {RuntimeInformation.FrameworkDescription}");
 Console.WriteLine($"OS: {RuntimeInformation.OSArchitecture} - {RuntimeInformation.OSDescription}");
 Console.WriteLine($"{nameof(RuntimeFeature.IsDynamicCodeSupported)}: {RuntimeFeature.IsDynamicCodeSupported}");
 Console.WriteLine($"{nameof(RuntimeFeature.IsDynamicCodeCompiled)}: {RuntimeFeature.IsDynamicCodeCompiled}");
+
+Console.WriteLine("Checking serialization ...");
+var json = JsonSerializer.Serialize(
+    new SerializationCheck("xyz"),
+    new JsonSerializerOptions
+    {
+        TypeInfoResolver = SourceGenerationContext.Default,
+    });
+Console.WriteLine($"Successfully serialized json: {json}.");
 
 Console.WriteLine("Initializing ...");
 
