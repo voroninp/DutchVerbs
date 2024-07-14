@@ -1,6 +1,6 @@
+using System.Globalization;
 using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
-using System.Text.Json;
 using Blazored.LocalStorage;
 using Blazored.LocalStorage.StorageOptions;
 using DutchVerbs.Spa;
@@ -8,7 +8,6 @@ using DutchVerbs.Spa.Domain.Services;
 using DutchVerbs.Spa.Infrastructure;
 using Microsoft.AspNetCore.Components.Web;
 using Microsoft.AspNetCore.Components.WebAssembly.Hosting;
-using Microsoft.JSInterop;
 
 Console.WriteLine($"Runtime: {RuntimeInformation.RuntimeIdentifier}");
 Console.WriteLine($"Framework: {RuntimeInformation.FrameworkDescription}");
@@ -19,6 +18,7 @@ Console.WriteLine($"{nameof(RuntimeFeature.IsDynamicCodeCompiled)}: {RuntimeFeat
 Console.WriteLine("Building application ...");
 
 var builder = WebAssemblyHostBuilder.CreateDefault(args);
+builder.Services.AddLocalization();
 builder.RootComponents.Add<App>("#app");
 builder.RootComponents.Add<HeadOutlet>("head::after");
 
@@ -39,4 +39,7 @@ var state = app.Services.GetRequiredService<IApplication>();
 Console.WriteLine("Acquired Application instance.");
 await state.InitializeAsync();
 Console.WriteLine("Initialized");
+
+CultureInfo.DefaultThreadCurrentCulture = new CultureInfo("ru-Ru");
+CultureInfo.DefaultThreadCurrentUICulture = new CultureInfo("ru-Ru");
 await app.RunAsync();

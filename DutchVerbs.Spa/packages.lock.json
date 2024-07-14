@@ -41,6 +41,18 @@
         "resolved": "8.0.7",
         "contentHash": "Op37H355w7cKhtB/tec7/UO/IxTM/TWQq5zw6GcTaLolDWsmnrubdW5j4eINEH+LKLJFuWyOJw/zCLw5mtrL9Q=="
       },
+      "Microsoft.Extensions.Localization": {
+        "type": "Direct",
+        "requested": "[8.0.7, )",
+        "resolved": "8.0.7",
+        "contentHash": "kdI24IfC1Jk3zfhWvYmuzvkzuKp+5Shjmfq0vk6EKBB+Udt4Gu1SkVSkMWJkYZFag+ndd+sTroUKDC/sud/DYQ==",
+        "dependencies": {
+          "Microsoft.Extensions.DependencyInjection.Abstractions": "8.0.1",
+          "Microsoft.Extensions.Localization.Abstractions": "8.0.7",
+          "Microsoft.Extensions.Logging.Abstractions": "8.0.1",
+          "Microsoft.Extensions.Options": "8.0.2"
+        }
+      },
       "Microsoft.NET.ILLink.Tasks": {
         "type": "Direct",
         "requested": "[8.0.7, )",
@@ -60,6 +72,15 @@
         "contentHash": "OhJ8cfzvX/rxCuEezniBQCaCqKuQtU2tNr3m3Qryu+V30lZcUrjtsg39DGZWLw6EzbJA+TUdZPfuLeEDuz3cXA==",
         "dependencies": {
           "System.Runtime.Loader": "4.3.0"
+        }
+      },
+      "System.Text.Json": {
+        "type": "Direct",
+        "requested": "[8.0.4, )",
+        "resolved": "8.0.4",
+        "contentHash": "bAkhgDJ88XTsqczoxEMliSrpijKZHhbJQldhAmObj/RbrN3sU5dcokuXmWJWsdQAhiMJ9bTayWsL1C9fbbCRhw==",
+        "dependencies": {
+          "System.Text.Encodings.Web": "8.0.0"
         }
       },
       "Microsoft.AspNetCore.Authorization": {
@@ -197,6 +218,11 @@
         "resolved": "8.0.0",
         "contentHash": "OK+670i7esqlQrPjdIKRbsyMCe9g5kSLpRRQGSr4Q58AOYEe/hCnfLZprh7viNisSUUQZmMrbbuDaIrP+V1ebQ=="
       },
+      "Microsoft.Extensions.Localization.Abstractions": {
+        "type": "Transitive",
+        "resolved": "8.0.7",
+        "contentHash": "uCsxqBBJEsSoV52tX/v+bxxN0e1O8WYIRR7tmcEmVVkRSX+0k4ZJcaL79ddus+0HIm3ssjV/dJk56XufDrGDqg=="
+      },
       "Microsoft.Extensions.Logging": {
         "type": "Transitive",
         "resolved": "8.0.0",
@@ -324,14 +350,6 @@
         "type": "Transitive",
         "resolved": "8.0.0",
         "contentHash": "yev/k9GHAEGx2Rg3/tU6MQh4HGBXJs70y7j1LaM1i/ER9po+6nnQ6RRqTJn1E7Xu0fbIFK80Nh5EoODxrbxwBQ=="
-      },
-      "System.Text.Json": {
-        "type": "Transitive",
-        "resolved": "8.0.0",
-        "contentHash": "OdrZO2WjkiEG6ajEFRABTRCi/wuXQPxeV6g8xvUJqdxMvvuCCEk86zPla8UiIQJz3durtUEbNyY/3lIhS0yZvQ==",
-        "dependencies": {
-          "System.Text.Encodings.Web": "8.0.0"
-        }
       },
       "System.Threading.Tasks": {
         "type": "Transitive",
