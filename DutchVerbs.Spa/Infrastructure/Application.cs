@@ -74,12 +74,17 @@ public sealed class Application : IApplication
     {
         try
         {
-            if (!TryGetStateFromStorage(out var stateDto))
-            {
-                await BuildFreshState();
-                await PersistState();
-                TryGetStateFromStorage(out stateDto);
-            }
+            // TODO: Change init logic completely.
+            await BuildFreshState();
+            await PersistState();
+            TryGetStateFromStorage(out var stateDto);
+
+            //if (!TryGetStateFromStorage(out stateDto))
+            //{
+            //    await BuildFreshState();
+            //    await PersistState();
+            //    TryGetStateFromStorage(out stateDto);
+            //}
 
             if (stateDto is null)
             {
@@ -122,7 +127,6 @@ public sealed class Application : IApplication
         var lines = content.Split(new[] { '\n', '\r' }, TrimAndRemoveEmpty);
         var id = 0;
 
-        _verbById.Clear();
         var verbs = lines.Select(line =>
         {
             var words = line.Split(';', TrimAndRemoveEmpty);
