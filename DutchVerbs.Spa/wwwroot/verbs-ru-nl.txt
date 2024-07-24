@@ -49,7 +49,7 @@ oставаться;blijven;bleef;gebleven
 долженствовать;moeten;moest;gemoeten
 брать;nemen;nam (мн. ч. namen);genomen
 ценить;prijzen;prees;geprezen
-советовать;raden;ried (raadde);geraden
+советовать;raden;raadde;geraden
 звать;rоеpen;riep;geroepen
 пахнуть,нюхать;ruiken;rook;geroken
 разделять, разводить;scheiden;scheidde;gescheiden
