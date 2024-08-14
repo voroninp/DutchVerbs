@@ -9,7 +9,7 @@
     <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
     <PublishTrimmed>true</PublishTrimmed>
     <RunAOTCompilation>true</RunAOTCompilation>
-    <NoWarn>CS1998;NU1803;NU1902;NU1903</NoWarn>
+    <NoWarn>CS1998;NU1803;NU1902;NU1903;NU1302</NoWarn>
     <RestorePackagesWithLockFile>true</RestorePackagesWithLockFile>
     <WasmEnableSIMD>false</WasmEnableSIMD>
     <WasmStripILAfterAOT>false</WasmStripILAfterAOT>
@@ -18,17 +18,16 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="BlazorBeforeUnload" Version="1.0.4" />
-    <PackageReference Include="Blazored.LocalStorage" Version="4.5.0" />
-    <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly" Version="8.0.7" />
-    <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly.DevServer" Version="8.0.7" PrivateAssets="all" />
-    <PackageReference Include="Microsoft.Extensions.Localization" Version="8.0.7" />
-    <PackageReference Include="Microsoft.Web.LibraryManager.Build" Version="2.1.175" />
-    <PackageReference Include="System.Text.Json" Version="8.0.4" />
+    <PackageReference Include="BlazorBeforeUnload" Version="1.*" />
+    <PackageReference Include="Blazored.LocalStorage" Version="4.*" />
+    <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly" Version="8.*" />
+    <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly.DevServer" Version="8.*" PrivateAssets="all" />
+    <PackageReference Include="Microsoft.Extensions.Localization" Version="8.*" />
+    <PackageReference Include="Microsoft.Web.LibraryManager.Build" Version="2.*" />
+    <PackageReference Include="System.Text.Json" Version="8.*" />
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Strings\" />
     <Folder Include="Tools\" />
   </ItemGroup>
 
