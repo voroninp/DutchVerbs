@@ -28,7 +28,14 @@
         <a class="dismiss">🗙</a>
     </div>
     <script src="_content/BlazorBeforeUnload/BeforeUnload.js"></script>
-    <script src="_framework/blazor.webassembly.js"></script>
+    <script src="_framework/blazor.webassembly.js" autostart="false"></script>
+    <script>
+        Blazor.start({
+          configureRuntime: dotnet => {
+            dotnet.withEnvironmentVariable("MONO_LOG_LEVEL", "debug");
+          }
+        });
+    </script>
     <script scr="lib/bootstrap/js/bootstrap.bundle.min.js"></script>
 
 </html>
