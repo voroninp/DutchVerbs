@@ -18,7 +18,7 @@ public sealed class Application : IApplication
 
     private readonly HttpClient _httpClient;
     private readonly ISyncLocalStorageService _storage;
-    private readonly BeforeUnload _beforeUnload;
+    //private readonly BeforeUnload _beforeUnload;
 
     private readonly Dictionary<int, VerbMapping> _verbById = new();
     private readonly Dictionary<int, LearningProgress> _learningProgressByVerbId = new();
@@ -26,11 +26,12 @@ public sealed class Application : IApplication
     public IReadOnlyDictionary<int, VerbMapping> VerbById { get; }
     public IReadOnlyDictionary<int, LearningProgress> LearningProgressByVerbId { get; }
 
-    public Application(HttpClient httpClient, ISyncLocalStorageService storage, BeforeUnload beforeUnload)
+    public Application(HttpClient httpClient, ISyncLocalStorageService storage)
+        //, BeforeUnload beforeUnload)
     {
         _httpClient = httpClient;
         _storage = storage;
-        _beforeUnload = beforeUnload;
+        //_beforeUnload = beforeUnload;
 
         VerbById = new ReadOnlyDictionary<int, VerbMapping>(_verbById);
         LearningProgressByVerbId = new ReadOnlyDictionary<int, LearningProgress>(_learningProgressByVerbId);
@@ -103,7 +104,7 @@ public sealed class Application : IApplication
                 _learningProgressByVerbId.Add(progress.VerbId, progress.ToModel());
             }
 
-            _beforeUnload.BeforeUnloadHandler += OnUnload;
+            //_beforeUnload.BeforeUnloadHandler += OnUnload;
         }
         catch (Exception ex)
         {
