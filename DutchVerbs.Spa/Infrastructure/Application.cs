@@ -112,7 +112,7 @@ public sealed class Application : IApplication
         }
     }
 
-    private static readonly Regex Word = new Regex(@"\w+-?\w+", RegexOptions.Singleline | RegexOptions.NonBacktracking);
+    private static readonly Regex Word = new Regex(@"\w+-?\w+", RegexOptions.Singleline);
 
     private async Task BuildFreshState()
     {
