@@ -12,13 +12,13 @@ namespace DutchVerbs.Spa.Infrastructure;
 
 public sealed class Application : IApplication
 {
-    private static readonly string AppStateKey = "AppState";
+    //private static readonly string AppStateKey = "AppState";
 
     public static readonly StringSplitOptions TrimAndRemoveEmpty = StringSplitOptions.TrimEntries | StringSplitOptions.RemoveEmptyEntries;
 
     private readonly HttpClient _httpClient;
-    private readonly ISyncLocalStorageService _storage;
-    //private readonly BeforeUnload _beforeUnload;
+    //private readonly ISyncLocalStorageService _storage;
+    private readonly BeforeUnload _beforeUnload;
 
     private readonly Dictionary<int, VerbMapping> _verbById = new();
     private readonly Dictionary<int, LearningProgress> _learningProgressByVerbId = new();
@@ -26,12 +26,11 @@ public sealed class Application : IApplication
     public IReadOnlyDictionary<int, VerbMapping> VerbById { get; }
     public IReadOnlyDictionary<int, LearningProgress> LearningProgressByVerbId { get; }
 
-    public Application(HttpClient httpClient, ISyncLocalStorageService storage)
-        //, BeforeUnload beforeUnload)
+    public Application(HttpClient httpClient, /*ISyncLocalStorageService storage,*/ BeforeUnload beforeUnload)
     {
         _httpClient = httpClient;
-        _storage = storage;
-        //_beforeUnload = beforeUnload;
+        //_storage = storage;
+        _beforeUnload = beforeUnload;
 
         VerbById = new ReadOnlyDictionary<int, VerbMapping>(_verbById);
         LearningProgressByVerbId = new ReadOnlyDictionary<int, LearningProgress>(_learningProgressByVerbId);
@@ -39,36 +38,40 @@ public sealed class Application : IApplication
 
     private bool TryGetStateFromStorage([NotNullWhen(true)] out ApplicationStateDto? stateDto)
     {
-        if (!_storage.ContainKey(AppStateKey))
-        {
-            Console.WriteLine($"Storage has no item with key ;{AppStateKey}'.");
+        stateDto = null;
+        return false;
+        
 
-            stateDto = null;
-            return false;
-        }
+        //if (!_storage.ContainKey(AppStateKey))
+        //{
+        //    Console.WriteLine($"Storage has no item with key ;{AppStateKey}'.");
 
-        try
-        {
-            stateDto = _storage.GetItem<ApplicationStateDto>(AppStateKey)!;
-            Debug.Assert(stateDto != null);
+        //    stateDto = null;
+        //    return false;
+        //}
 
-            if (stateDto.Verbs.Length == 0)
-            {
-                Console.WriteLine("State seems to be broken, because it contains zero verbs.");
+        //try
+        //{
+        //    stateDto = _storage.GetItem<ApplicationStateDto>(AppStateKey)!;
+        //    Debug.Assert(stateDto != null);
 
-                stateDto = null;
-                return false;
-            }
+        //    if (stateDto.Verbs.Length == 0)
+        //    {
+        //        Console.WriteLine("State seems to be broken, because it contains zero verbs.");
 
-            return true;
-        }
-        catch (Exception ex)
-        {
-            Console.WriteLine("Got an exception while deserializing state: {0}", ex);
+        //        stateDto = null;
+        //        return false;
+        //    }
 
-            stateDto = null;
-            return false;
-        }
+        //    return true;
+        //}
+        //catch (Exception ex)
+        //{
+        //    Console.WriteLine("Got an exception while deserializing state: {0}", ex);
+
+        //    stateDto = null;
+        //    return false;
+        //}
     }
 
     public async ValueTask InitializeAsync()
@@ -104,7 +107,7 @@ public sealed class Application : IApplication
                 _learningProgressByVerbId.Add(progress.VerbId, progress.ToModel());
             }
 
-            //_beforeUnload.BeforeUnloadHandler += OnUnload;
+            _beforeUnload.BeforeUnloadHandler += OnUnload;
         }
         catch (Exception ex)
         {
@@ -169,7 +172,7 @@ public sealed class Application : IApplication
             VerbById.Values.Select(VerbDto.FromModel).ToArray(),
             LearningProgressByVerbId.Values.Select(LearningProgressDto.FromModel).ToArray());
 
-        _storage.SetItem(AppStateKey, state);
+        //_storage.SetItem(AppStateKey, state);
     }
 
     public VerbMapping GetNextVerb()
