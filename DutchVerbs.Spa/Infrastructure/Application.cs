@@ -10,7 +10,7 @@ using DutchVerbs.Spa.Infrastructure.DTOs;
 
 namespace DutchVerbs.Spa.Infrastructure;
 
-public sealed class Application : IApplication
+public sealed partial class Application : IApplication
 {
     private static readonly string AppStateKey = "AppState";
 
@@ -112,7 +112,8 @@ public sealed class Application : IApplication
         }
     }
 
-    private static readonly Regex Word = new Regex(@"\w+-?\w+", RegexOptions.Singleline);
+    [GeneratedRegex(@"\w+-?\w+", RegexOptions.Singleline)]
+    private static partial Regex Word();
 
     private async Task BuildFreshState()
     {
@@ -135,9 +136,9 @@ public sealed class Application : IApplication
 
             var targetVerbs = new[]
             {
-                (VerbTime.Present, new Spelling(Word.Match(words[1]).Value)),
-                (VerbTime.PastSimple, new Spelling(Word.Match(words[2]).Value)),
-                (VerbTime.Perfect, new Spelling(Word.Match(words[3]).Value))
+                (VerbTime.Present, new Spelling(Word().Match(words[1]).Value)),
+                (VerbTime.PastSimple, new Spelling(Word().Match(words[2]).Value)),
+                (VerbTime.Perfect, new Spelling(Word().Match(words[3]).Value))
             };
 
             return new VerbMapping(
