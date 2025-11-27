@@ -20,9 +20,9 @@
   <ItemGroup>
     <PackageReference Include="BlazorBeforeUnload" Version="1.*" />
     <PackageReference Include="Blazored.LocalStorage" Version="4.*" />
-    <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly" Version="9.*" />
-    <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly.DevServer" Version="9.*" PrivateAssets="all" />
-    <PackageReference Include="Microsoft.Extensions.Localization" Version="9.*" />
+    <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly" Version="10.*" />
+    <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly.DevServer" Version="10.*" PrivateAssets="all" />
+    <PackageReference Include="Microsoft.Extensions.Localization" Version="10.*" />
     <PackageReference Include="Microsoft.Web.LibraryManager.Build" Version="3.*" />
   </ItemGroup>
 

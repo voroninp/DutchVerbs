@@ -1,6 +1,7 @@
 ﻿using System.Collections.ObjectModel;
 using System.Diagnostics;
 using System.Diagnostics.CodeAnalysis;
+using System.Text.Json;
 using System.Text.RegularExpressions;
 using blazejewicz.Blazor.BeforeUnload;
 using Blazored.LocalStorage;
@@ -17,7 +18,7 @@ public sealed partial class Application : IApplication
     public static readonly StringSplitOptions TrimAndRemoveEmpty = StringSplitOptions.TrimEntries | StringSplitOptions.RemoveEmptyEntries;
 
     private readonly HttpClient _httpClient;
-    private readonly ISyncLocalStorageService _storage;
+    private readonly ILocalStorageService _storage;
     private readonly BeforeUnload _beforeUnload;
 
     private readonly Dictionary<int, VerbMapping> _verbById = new();
@@ -26,7 +27,7 @@ public sealed partial class Application : IApplication
     public IReadOnlyDictionary<int, VerbMapping> VerbById { get; }
     public IReadOnlyDictionary<int, LearningProgress> LearningProgressByVerbId { get; }
 
-    public Application(HttpClient httpClient, ISyncLocalStorageService storage, BeforeUnload beforeUnload)
+    public Application(HttpClient httpClient, ILocalStorageService storage, BeforeUnload beforeUnload)
     {
         _httpClient = httpClient;
         _storage = storage;
@@ -36,37 +37,34 @@ public sealed partial class Application : IApplication
         LearningProgressByVerbId = new ReadOnlyDictionary<int, LearningProgress>(_learningProgressByVerbId);
     }
 
-    private bool TryGetStateFromStorage([NotNullWhen(true)] out ApplicationStateDto? stateDto)
+    private async ValueTask<ApplicationStateDto?> TryGetStateFromStorage()
     {
-        if (!_storage.ContainKey(AppStateKey))
+        if (! await _storage.ContainKeyAsync(AppStateKey))
         {
             Console.WriteLine($"Storage has no item with key ;{AppStateKey}'.");
 
-            stateDto = null;
-            return false;
+            return null;
         }
 
         try
         {
-            stateDto = _storage.GetItem<ApplicationStateDto>(AppStateKey)!;
+            var stateDto = await _storage.GetItemAsync<ApplicationStateDto>(AppStateKey)!;
             Debug.Assert(stateDto != null);
 
             if (stateDto.Verbs.Length == 0)
             {
                 Console.WriteLine("State seems to be broken, because it contains zero verbs.");
 
-                stateDto = null;
-                return false;
+                return null;
             }
 
-            return true;
+            return stateDto;
         }
         catch (Exception ex)
         {
             Console.WriteLine("Got an exception while deserializing state: {0}", ex);
 
-            stateDto = null;
-            return false;
+            return null;
         }
     }
 
@@ -77,7 +75,7 @@ public sealed partial class Application : IApplication
             // TODO: Change init logic completely.
             await BuildFreshState();
             await PersistState();
-            TryGetStateFromStorage(out var stateDto);
+            var stateDto = await TryGetStateFromStorage();
 
             //if (!TryGetStateFromStorage(out stateDto))
             //{
@@ -169,7 +167,7 @@ public sealed partial class Application : IApplication
             VerbById.Values.Select(VerbDto.FromModel).ToArray(),
             LearningProgressByVerbId.Values.Select(LearningProgressDto.FromModel).ToArray());
 
-        _storage.SetItem(AppStateKey, state);
+        await _storage.SetItemAsync(AppStateKey, state);
     }
 
     public VerbMapping GetNextVerb()
