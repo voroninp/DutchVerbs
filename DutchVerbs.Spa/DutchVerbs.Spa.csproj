@@ -12,7 +12,7 @@
     <NoWarn>CS1998;NU1803;NU1902;NU1903;NU1302</NoWarn>
     <RestorePackagesWithLockFile>true</RestorePackagesWithLockFile>
     <WasmEnableSIMD>true</WasmEnableSIMD>
-    <WasmStripILAfterAOT>false</WasmStripILAfterAOT>
+    <WasmStripILAfterAOT>true</WasmStripILAfterAOT>
     <JsonSerializerIsReflectionEnabledByDefault>true</JsonSerializerIsReflectionEnabledByDefault>
     <BlazorWebAssemblyLoadAllGlobalizationData>true</BlazorWebAssemblyLoadAllGlobalizationData>
   </PropertyGroup>
